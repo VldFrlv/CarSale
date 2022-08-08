@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>CarSale :: {{ request.user }}'s Personal area </title>
+{% endblock %}
+{% block content %}
+    {% for car in user_cars %}
+        <div class="card" style="width: 25rem; padding: 20px">
+            <img src="{{ car.photo_1.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
+                <h6>Price: {{ car.price }} {{ car.price_currency }}</h6>
+                <p class="card-text">{{ car.fuel }} {{ car.engine_volume }} {{ car.transmission }}</p>
+                <p class="card-text">Mileage(km): {{ car.mileage }}</p>
+                <a href="{{ car.get_absolute_url }}" class="btn btn-primary">Open</a>
+                <a href="{% url 'edit_car' car.pk %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'deletecar'  car.pk %}" class="btn btn-primary">Delete</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

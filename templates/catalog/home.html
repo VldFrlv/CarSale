@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>CarSale :: Home</title>
+{% endblock %}
+{% block content %}
+{% for car in cars %}
+
+    <div class="card" style="width: 25rem; padding: 20px">
+        <img src="{{ car.photo_1.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
+            <h6>Price: {{ car.price }} {{ car.price_currency }}</h6>
+            <p class="card-text">{{ car.fuel }} {{ car.engine_volume }} {{ car.transmission }}</p>
+            <p class="card-text">Mileage(km): {{ car.mileage }}</p>
+            <a href="{{ car.get_absolute_url }}" class="btn btn-primary">Open</a>
+        </div>
+    </div>
+
+{% endfor %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page.obj.previous_page_number }}">Previous</a>
+            </li>
+        {% endif %}
+        {% for p in page_obj.paginator.page_range %}
+            {% if page_obj.number == p %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="?page={{ p }}">{{ p }}<span class="sr-only"></span></a>
+                </li>
+            {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}

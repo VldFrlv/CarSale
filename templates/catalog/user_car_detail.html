@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>CarSale :: {{ car_item.brand }} {{ car_item.model }}</title>
+{% endblock %}
+{% block content %}
+{% for car_item in user_cars %}
+    <h3>{{ car_item.brand }} {{ car_item.model }}</h3>
+    <h5>{{ car_item.price }} {{ car_item.price_currency }}</h5>
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ car_item.photo_1.url }}" class="d-block w-100" width="30" alt="...">
+            </div>
+            {% if car_item.photo_2 %}
+            <div class="carousel-item">
+                <img src="{{ car_item.photo_2.url }}" class="d-block w-100" alt="...">
+            </div>
+            {% endif %}
+            {% if car_item.photo_3 %}
+            <div class="carousel-item">
+                <img src="{{ car_item.photo_3.url }}" class="d-block w-100" alt="...">
+            </div>
+            {% endif %}
+            {% if car_item.photo_4 %}
+            <div class="carousel-item">
+                <img src="{{ car_item.photo_4.url }}" class="d-block w-100" alt="...">
+            </div>
+            {% endif %}
+            {% if car_item.photo_5 %}
+            <div class="carousel-item">
+                <img src="{{ car_item.photo_5.url }}" class="d-block w-100" alt="...">
+            </div>
+            {% endif %}
+            {% if car_item.photo_6 %}
+            <div class="carousel-item">
+                <img src="{{ car_item.photo_6.url }}" class="d-block w-100" alt="...">
+            </div>
+            {% endif %}
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+          <p class="card-text"><b>Year of manufacture:</b> {{ car_item.year}}</p>
+        <p class="card-text"><b>Engine_volume:</b> {{ car_item.engine_volume }}</p>
+        <p class="card-text"><b>Type of fuel:</b> {{ car_item.fuel }}</p>
+        <p class="card-text"><b>Transmission:</b> {{ car_item.transmission }}</p>
+          <p class="card-text"><b>Drive:</b> {{ car_item.drive }}</p>
+        <p class="card-text"><b>Mileage:</b> {{ car_item.mileage }} km</p>
+        <p class="card-text"><b>Color:</b> {{ car_item.color }}</p>
+          <hr>
+        <p class="card-text"><b>Description:</b> {{ car_item.description }}</p>
+          <hr>
+        <p class="card-text"><b>Name of seller:</b> {{ car_item.seller.name }}</p>
+        <p class="card-text"><b>Phone:</b> {{ car_item.seller.phone}}</p>
+        <hr>
+        <p class="card-text"><small class="text-muted"> Published: {{ car_item.created_at|date:"d.m.Y" }} Views: {{ car_item.views }}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+    {% endfor %}
+{% endblock %}
